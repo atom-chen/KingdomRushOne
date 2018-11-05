@@ -64,15 +64,16 @@ export default class NewClass extends cc.Component {
             case 'btn_start':{
                 cc.log('btn_start clicked')
                 let self = this
-                let perfab = null
-                cc.loader.loadRes("../resource/perfab/savelotLayer", function(err, node){
-                    cc.log(node.name)
-                    perfab = cc.instantiate(node)
+                
+                cc.loader.loadRes("perfab/savelotLayer", function(err, node){
+                    cc.log(err)
+                    let perfab = cc.instantiate(node)
+                    self.node.addChild(perfab)
+                    let moveto = cc.moveTo(0.5, cc.p(0, 0))
+                    perfab.runAction(moveto)
                 })
                 
-                this.node.addChild(perfab)
-                let moveto = cc.moveTo(0.5, cc.p(0, 0))
-                perfab.runAction(moveto)
+                
                 break
             }
             case 'btn_creator':{
