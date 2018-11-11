@@ -66,14 +66,13 @@ export default class NewClass extends cc.Component {
                 let self = this
                 
                 cc.loader.loadRes("perfab/savelotLayer", function(err, node){
-                    cc.log(err)
-                    let perfab = cc.instantiate(node)
-                    self.node.addChild(perfab)
-                    let moveto = cc.moveTo(0.5, cc.p(0, 0))
-                    perfab.runAction(moveto)
+                    if(err){
+                        cc.log("载入资源失败：", err)
+                    }else{
+                        let perfab = cc.instantiate(node)
+                        self.node.addChild(perfab)
+                    }
                 })
-                
-                
                 break
             }
             case 'btn_creator':{
