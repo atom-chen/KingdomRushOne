@@ -12,7 +12,7 @@ export default class LayerManager extends cc.Component {
     
     public static GetInstance():LayerManager {
         if(LayerManager._instance == null){
-            cc.log("new AnimationControl")
+            cc.log("new LayerManager")
             LayerManager._instance = new LayerManager();            
         }
         return this._instance

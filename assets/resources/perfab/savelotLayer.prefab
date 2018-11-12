@@ -485,7 +485,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "leb_star",
+    "_name": "lab_star",
     "_objFlags": 0,
     "_parent": {
       "__id__": 6
@@ -1085,7 +1085,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "leb_star",
+    "_name": "lab_star",
     "_objFlags": 0,
     "_parent": {
       "__id__": 23
@@ -1598,7 +1598,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "leb_star",
+    "_name": "lab_star",
     "_objFlags": 0,
     "_parent": {
       "__id__": 40
