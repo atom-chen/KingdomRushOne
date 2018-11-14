@@ -29,6 +29,10 @@ export default class SavelotLayer extends cc.Component {
     m_sprStar:cc.Node[] = []
     m_btnItemClose:cc.Node[] = []
 
+    m_customLayer:cc.Node = null
+
+    m_layerManager:LayerManager = null
+
     @property(Number)
     btnNewItemNum:number = 0
 
@@ -58,6 +62,8 @@ export default class SavelotLayer extends cc.Component {
                 let index = tag % BtnTag.BTN_TAG_SAVELOT_BEGIN
                 if(this.m_isNewSlot[index-1]){
                     cc.log("已有存档，进入关卡层")
+
+                    this.m_layerManager.ReplaceLayer("perfab/layer/customsLayer", this.node.parent.parent)
                 }else{
                     let data = {
                         star:0,
@@ -67,6 +73,7 @@ export default class SavelotLayer extends cc.Component {
 
                     Utils.writeStorage("slot_"+index, data)
                     this.m_isNewSlot[index-1] = true
+                    this.m_layerManager.ReplaceLayer("perfab/layer/customsLayer", this.node.parent.parent)
                     cc.log("新建存档，进入关卡层")
                 }
                 
@@ -77,6 +84,7 @@ export default class SavelotLayer extends cc.Component {
                 cc.log("关闭按钮被点击")
                 this.node.removeAllChildren(true)
                 this.node.destroy()
+                break
             }
             case BtnTag.BTN_TAG_ITEM_1:case BtnTag.BTN_TAG_ITEM_2:case BtnTag.BTN_TAG_ITEM_3:{
                 cc.log("子项关闭按钮被点击")
@@ -140,6 +148,8 @@ export default class SavelotLayer extends cc.Component {
         this.node.width = cc.director.getVisibleSize().width
         this.node.height = cc.director.getVisibleSize().height
         this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEventEnded, this)
+
+        this.m_layerManager = LayerManager.GetInstance()
     }
 
     initConfig(){

@@ -7,7 +7,7 @@ export default class utils{
         }
 
         let strValue = JSON.stringify(value)
-        localStorage.setItem(key,strValue)
+        cc.sys.localStorage.setItem(key,strValue)
     }
 
     public static readStorage(key:string):any{
@@ -16,7 +16,7 @@ export default class utils{
             return
         }
 
-        let strJson = localStorage.getItem(key)
+        let strJson = cc.sys.localStorage.getItem(key)
         let jsonObj = JSON.parse(strJson)
 
         return jsonObj
@@ -28,6 +28,6 @@ export default class utils{
             return
         }
 
-        localStorage.removeItem(key)
+        cc.sys.localStorage.removeItem(key)
     }
 }

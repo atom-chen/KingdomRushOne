@@ -65,7 +65,7 @@ export default class NewClass extends cc.Component {
                 cc.log('btn_start clicked')
                 let self = this
                 
-                cc.loader.loadRes("perfab/savelotLayer", function(err, node){
+                cc.loader.loadRes("perfab/layer/savelotLayer", function(err, node){
                     if(err){
                         cc.log("载入资源失败：", err)
                     }else{

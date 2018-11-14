@@ -3,10 +3,12 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default class LayerManager extends cc.Component {
     private static _instance:LayerManager = null
-    private m_curLayer:cc.Node[] = null
+    private m_curLayer:cc.Node[] = []
+    private m_curLayerIndex
 
     constructor(){
         super()     //先初始化父类
+        this.m_curLayerIndex = -1
         cc.log("LayerManager 构造函数")
     }
     
@@ -24,13 +26,26 @@ export default class LayerManager extends cc.Component {
      * @param layer 要加载的layer
      * @param parent 父节点
      */
-    LoadLayer(layer:cc.Node, parent:cc.Node){
-        if(layer == null || parent == null){
+    LoadLayer(url:string, parent:cc.Node){
+        if(url == null || parent == null){
             return 
         }
 
-        parent.addChild(layer)
-        this.m_curLayer.push(layer)
+        let self = this
+        cc.loader.loadRes(url, cc.Prefab, function(error, prefab){
+            if(error){
+                cc.log("加载"+url+"失败：", error)
+                return
+            }
+            self.m_curLayerIndex += 1
+            self.m_curLayer[self.m_curLayerIndex] = cc.instantiate(prefab)
+            if(!self.m_curLayer[self.m_curLayerIndex]){
+                return
+            }
+
+            self.m_curLayer[self.m_curLayerIndex].active = true
+            parent.addChild(self.m_curLayer[self.m_curLayerIndex])
+        })
     }
 
     /**
@@ -38,8 +53,8 @@ export default class LayerManager extends cc.Component {
      * @param layer 
      * @param parent 
      */
-    ReplaceLayer(layer:cc.Node, parent:cc.Node){
-        if(layer == null || parent == null){
+    ReplaceLayer(url:string, parent:cc.Node){
+        if(url == null || parent == null){
             return 
         }
 
@@ -50,8 +65,9 @@ export default class LayerManager extends cc.Component {
             }
         }
         this.m_curLayer = []
+        this.m_curLayerIndex = -1
 
-        this.LoadLayer(layer, parent)
+        this.LoadLayer(url, parent)
     }
 
     /**
